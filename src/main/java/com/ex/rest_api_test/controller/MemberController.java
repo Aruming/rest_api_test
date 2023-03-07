@@ -28,7 +28,7 @@ public class MemberController {
         Member member = memberService.findById(id).orElse(null);
 
         if(member == null){
-            return new ResponseEntity(null, null, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity("존재하지 않는 회원입니다.", null, HttpStatus.BAD_REQUEST);
         }
 
         return new ResponseEntity(member, null, HttpStatus.OK);
@@ -39,5 +39,18 @@ public class MemberController {
         Member newMember = memberService.join(memberJoinDto.getName(), memberJoinDto.getAge());
 
         return new ResponseEntity(newMember, null, HttpStatus.CREATED);
+    }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity delete(@PathVariable Long id){
+        Member member = memberService.findById(id).orElse(null);
+
+        if(member == null){
+            return new ResponseEntity("존재하지 않는 회원입니다.", null, HttpStatus.BAD_REQUEST);
+        }
+
+        memberService.delete(member);
+
+        return new ResponseEntity(member.getId()+"번 회원 삭제 완료", null, HttpStatus.OK);
     }
 }

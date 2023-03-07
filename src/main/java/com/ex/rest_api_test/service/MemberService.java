@@ -31,4 +31,8 @@ public class MemberService {
     public Optional<Member> findById(Long id) {
         return memberRepository.findById(id);
     }
+
+    public void delete(Member member) {
+        memberRepository.delete(member);
+    }
 }
