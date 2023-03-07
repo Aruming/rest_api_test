@@ -1,6 +1,7 @@
 package com.ex.rest_api_test.controller;
 
 import com.ex.rest_api_test.dto.MemberJoinDto;
+import com.ex.rest_api_test.dto.MemberModifyDto;
 import com.ex.rest_api_test.entity.Member;
 import com.ex.rest_api_test.service.MemberService;
 import lombok.RequiredArgsConstructor;
@@ -52,5 +53,18 @@ public class MemberController {
         memberService.delete(member);
 
         return new ResponseEntity(member.getId()+"번 회원 삭제 완료", null, HttpStatus.OK);
+    }
+
+    @PutMapping("{id}")
+    public ResponseEntity update(@PathVariable Long id, @RequestBody MemberModifyDto memberModifyDto){
+        Member member = memberService.findById(id).orElse(null);
+
+        if(member == null){
+            return new ResponseEntity("존재하지 않는 회원입니다.", null, HttpStatus.BAD_REQUEST);
+        }
+
+        memberService.update(member, memberModifyDto);
+
+        return new ResponseEntity(member, null, HttpStatus.OK);
     }
 }

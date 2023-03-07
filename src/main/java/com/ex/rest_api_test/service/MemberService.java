@@ -1,5 +1,6 @@
 package com.ex.rest_api_test.service;
 
+import com.ex.rest_api_test.dto.MemberModifyDto;
 import com.ex.rest_api_test.entity.Member;
 import com.ex.rest_api_test.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -34,5 +35,11 @@ public class MemberService {
 
     public void delete(Member member) {
         memberRepository.delete(member);
+    }
+
+    public void update(Member member, MemberModifyDto memberModifyDto) {
+        member.setName(memberModifyDto.getName());
+        member.setAge(memberModifyDto.getAge());
+        memberRepository.save(member);
     }
 }
