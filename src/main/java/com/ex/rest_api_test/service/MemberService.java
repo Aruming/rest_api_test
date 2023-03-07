@@ -5,6 +5,8 @@ import com.ex.rest_api_test.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class MemberService {
@@ -19,5 +21,9 @@ public class MemberService {
         memberRepository.save(member);
 
         return member;
+    }
+
+    public List<Member> findAll() {
+        return memberRepository.findAllByOrderByIdAsc();
     }
 }
